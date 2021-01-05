@@ -1,9 +1,10 @@
 import express, { Request, Response } from 'express';
 import { body, validationResult } from 'express-validator';
 import { User } from '../models/user';
-import { RequestValidationError } from '../errors/requestValidationError';
 import { BadRequestError } from '../errors/badRequestError';
 import jwt from 'jsonwebtoken';
+import { validateRequest } from './../middlewares/validateRequests';
+
 
 const router = express.Router();
 
@@ -20,16 +21,11 @@ router.post(
             .isLength({ min: 8 })
             .withMessage('Password must be at least 8 characters')
     ],
+    validateRequest,
     async( req: Request, res: Response ) => {    
         const errors = validationResult(req);
         const { email, password } = req.body;
 
-        // Catch errors from the request
-        if ( !errors.isEmpty() ) {
-            throw new RequestValidationError(errors.array())
-        };
-
-        // No validation errors, proceed with attempting user creation
         console.log(`Attempting to create user with ${email}:${password}`)
         
         // Check if email is unique

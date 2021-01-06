@@ -31,7 +31,8 @@ async( req: Request, res: Response ) => {
     if ( !existingUser ) throw new BadRequestError('Invalid Credentials');
 
     // Match passwords
-    const passwordsMatch = PasswordManager.compare(existingUser.password, password);
+    const passwordsMatch = await PasswordManager.compare(existingUser.password, password);
+
     if ( !passwordsMatch ) throw new BadRequestError('Invalid Credentials');
 
     // Generate JSON Web Token
@@ -45,8 +46,6 @@ async( req: Request, res: Response ) => {
     req.session = {
         jwt: userJWT
     };
-
-    console.log('POST /api/users/signin - OK - Auth Server @ 3000');
     res.status(200).send(existingUser);
 });
 

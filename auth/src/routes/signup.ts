@@ -25,8 +25,6 @@ router.post(
     async( req: Request, res: Response ) => {    
         const errors = validationResult(req);
         const { email, password } = req.body;
-
-        console.log(`Attempting to create user with ${email}:${password}`)
         
         // Check if email is unique
         const existingUser = await User.findOne({ email });
@@ -55,8 +53,6 @@ router.post(
         req.session = {
             jwt: userJWT
         };
-
-        console.log('POST /api/users/signup - SUCCESS - Auth Server @ 3000');
         res.status(201).send(user);
 });
 

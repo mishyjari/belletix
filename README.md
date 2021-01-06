@@ -22,7 +22,11 @@ Note that this is built as part of [Steven Grider](https://www.udemy.com/course/
 
 #### Services
 ##### Auth
-Handles new user creation and, sessions and user authenication. User instances are stored in a Mongo database with passwords hashed using scrypt and randomBytes.
+Handles new user creation and, sessions and user authenication. User instances are stored in a Mongo database with passwords hashed using scrypt and randomBytes. Set up to run as a Docker container in Kubernetes
+
+Errors are handled with cutsom error scripts
+
+Implements custom middleware to route errors, apply validation to requests, confrim authorization/authentication
 - GET /api/users/currentuser - returns logged in user if any
 - POST /api/users/signup - validates request data, confirms uniqueness, hashes password and creates db entry
 - POST /api/users/signin - performs authentication and creates user session
@@ -35,4 +39,9 @@ Handles new user creation and, sessions and user authenication. User instances a
 ##### Payments
 
 ### Changelog
-[1/5/21] Initial commit. Auth service functional.
+[1/6/21]
+- Implemented testing with Jest / Supertest for Auth Server
+  
+[1/5/21]
+- Built out login/logout functionality
+- Initial commit. Auth service functional.

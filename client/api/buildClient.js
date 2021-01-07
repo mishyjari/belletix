@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Retrieve cookies and header data selectively depening on request source (server vs client)
-export default ({ req }) => {
+const buildClient = ({ req }) => {
   return typeof window === 'undefined'
     ? axios.create({
         baseURL:
@@ -13,4 +13,4 @@ export default ({ req }) => {
       });
 };
 
-// export default buildClient;
+export default buildClient;

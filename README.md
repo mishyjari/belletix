@@ -7,6 +7,8 @@ A StubHub clone built as an exploration of several topics, including
 - Typescript within React and Node.js environments
 - Custom error handlers and middleware within an Express server
 - Authorization and authentication strategies
+- Server side rendering using Next.js
+- Communicating between containers
 
 More topics being added as development continues.
 
@@ -40,6 +42,8 @@ Implements custom middleware to route errors, apply validation to requests, conf
 
 ### Changelog
 [1/6/21]
+- Extracted common features into npm library @mfrattaroli/common
+- Set up front end rendered server-side to handle authorization
 - Implemented testing with Jest / Supertest for Auth Server
   
 [1/5/21]

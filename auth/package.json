@@ -18,6 +18,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@mfrattaroli/common": "^1.0.2",
     "@types/cookie-session": "^2.0.42",
     "@types/express": "^4.17.9",
     "@types/express-validator": "^3.0.0",

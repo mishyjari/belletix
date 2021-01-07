@@ -10,7 +10,6 @@ const start = async() => {
     if ( !process.env.JWT_KEY ) throw new Error('Missing env variable for JWT_KEY');
     if ( !process.env.MONGO_URI ) throw new Error('Missing env variable for MONGO_URI');
 
-
     try {
         await mongoose.connect(process.env.MONGO_URI, {
             useNewUrlParser: true,
@@ -23,7 +22,7 @@ const start = async() => {
         console.log(err)
     };
 
-    app.listen(PORT, () => console.log('Auth Server listening on port ' + PORT));
+    app.listen(PORT, () => console.log('Tickets Server listening on port ' + PORT));
 };
 
 start();

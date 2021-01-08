@@ -2,7 +2,7 @@ import request from 'supertest';
 import { app } from '../../app';
 import mongoose from 'mongoose';
 
-import  { Ticket } from '../../models/ticket';
+import { natsWrapper } from "../../natsWrapper";
 
 const exampleId = new mongoose.Types.ObjectId().toHexString();
 
@@ -133,3 +133,26 @@ it('Updates the ticket if the user is logged in, owns the ticket all all data is
     expect(price).toEqual(2);
     expect(title).toEqual('NewTitle');
 });
+
+it('Publishes an event on ticket update', async () => {
+    const cookie = global.getAuthCookie();
+
+    const { body } = await request(app)
+        .post('/api/tickets')
+        .set('Cookie', cookie)
+        .send({
+            title: 'Title',
+            price: 1
+        });
+
+    await request(app)
+        .patch(`/api/tickets/${body.id}`)
+        .set('Cookie', cookie)
+        .send({
+            title: 'NewTitle',
+            price: 2
+        })
+        .expect(201)
+    
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
+})

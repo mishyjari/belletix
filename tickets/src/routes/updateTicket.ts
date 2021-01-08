@@ -8,6 +8,8 @@ import {
 } from '@mfrattaroli/common';
 
 import { Ticket } from '../models/ticket';
+import { TicketUpdatedPublisher } from "../events/publishers/ticketUpdatedPublisher";
+import { natsWrapper } from "../natsWrapper";
 
 const router = express.Router();
 
@@ -33,6 +35,11 @@ router.patch('/api/tickets/:id', requireAuth, [
         ticket.set({title, price});
         await ticket.save();
         
+        new TicketUpdatedPublisher(natsWrapper.client).publish({
+            id: ticket.id,
+            ...ticket
+        })
+
         res.status(201).send(ticket);
     }
 )

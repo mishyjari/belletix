@@ -9,6 +9,9 @@ A StubHub clone built as an exploration of several topics, including
 - Authorization and authentication strategies
 - Server side rendering using Next.js
 - Communicating between containers
+- Extensive route testing with Jest/Supertest
+- Refresher on creating crud routes with MongoDB
+- Event publishing and listening using NATS Streaming Server
 
 More topics being added as development continues.
 
@@ -19,6 +22,9 @@ Note that this is built as part of [Steven Grider](https://www.udemy.com/course/
 - email: required, string
 - password: required, string, hashed
 ##### Ticket
+- Title: required, string
+- Price: required number > 0
+- userId: required, references user, string
 ##### Order
 ##### Charge
 
@@ -41,6 +47,9 @@ Implements custom middleware to route errors, apply validation to requests, conf
 ##### Payments
 
 ### Changelog
+[1/7/21]
+- Implemented NATS event broadcasting functionality to tickets service
+- Created ticketing service with full crud capacity and test suites
 [1/6/21]
 - Extracted common features into npm library @mfrattaroli/common
 - Set up front end rendered server-side to handle authorization
